@@ -3,6 +3,8 @@
 The simplest possible tool I could come up with to create little reminders
 leveraging the systems native notifications.
 
+![Notification](/notification.png)
+
 ## Building from source
 
 ```bash
