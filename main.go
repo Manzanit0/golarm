@@ -31,7 +31,7 @@ func maybeInitCrontab() {
 }
 
 func saveCronJob(cron string, message string) {
-	command := fmt.Sprintf("(crontab -l 2>/dev/null && echo \"%s /Users/manzanit0/repositories/golarm/golarm -message=%s\") | crontab -", cron, message)
+	command := fmt.Sprintf("(crontab -l 2>/dev/null && echo \"%s /usr/local/bin/golarm -message=%s\") | crontab -", cron, message)
 	cmd := exec.Command("sh", "-c", command)
 	if err := cmd.Run(); err != nil {
 		log.Fatal(err)
