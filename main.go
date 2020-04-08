@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"os/exec"
 
 	"github.com/martinlindhe/notify"
@@ -31,7 +32,12 @@ func maybeInitCrontab() {
 }
 
 func saveCronJob(cron string, message string) {
-	command := fmt.Sprintf("(crontab -l 2>/dev/null && echo \"%s /usr/local/bin/golarm -message=%s\") | crontab -", cron, message)
+	executable, err := os.Executable()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	command := fmt.Sprintf("(crontab -l 2>/dev/null && echo \"%s %s -message='%s'\") | crontab -", cron, executable, message)
 	cmd := exec.Command("sh", "-c", command)
 	if err := cmd.Run(); err != nil {
 		log.Fatal(err)
